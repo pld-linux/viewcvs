@@ -9,7 +9,7 @@ diff -urN viewcvs-0.9.2.orig/cgi/query.cgi viewcvs-0.9.2/cgi/query.cgi
 -  sys.path.insert(0, LIBRARY_DIR)
 -else:
 -  sys.path[:0] = ['../lib']	# any other places to look?
-+sys.path.insert(0, '/usr/lib/python2.3/site-packages')
++LIBRARY_DIR = sys.argv[1]; sys.path.append(LIBRARY_DIR)
  
  #########################################################################
  
@@ -24,7 +24,7 @@ diff -urN viewcvs-0.9.2.orig/cgi/viewcvs.cgi viewcvs-0.9.2/cgi/viewcvs.cgi
 -  sys.path.insert(0, LIBRARY_DIR)
 -else:
 -  sys.path[:0] = ['../lib']	# any other places to look?
-+sys.path.insert(0, '/usr/lib/python2.3/site-packages')
++LIBRARY_DIR = sys.argv[1]; sys.path.append(LIBRARY_DIR)
  
  #########################################################################
  
@@ -137,22 +137,22 @@ diff -urN viewcvs-0.9.2.orig/viewcvs-install viewcvs-0.9.2/viewcvs-install
 -    ("lib/ezt.py", "lib/ezt.py", 0644, 0, 0, 1),
 -    ("lib/apache_icons.py", "lib/apache_icons.py", 0644, 0, 0, 1),
 -    ("lib/accept.py", "lib/accept.py", 0644, 0, 0, 1),
-+    ("lib/PyFontify.py", "usr/lib/python2.3/site-packages/PyFontify.py", 0644, 0, 0, 0),
-+    ("lib/blame.py", "usr/lib/python2.3/site-packages/blame.py", 0644, 0, 0, 0),
-+    ("lib/compat.py", "usr/lib/python2.3/site-packages/compat.py", 0644, 0, 0, 0),
-+    ("lib/config.py", "usr/lib/python2.3/site-packages/config.py", 0644, 0, 0, 0),
-+    ("lib/cvsdb.py", "usr/lib/python2.3/site-packages/cvsdb.py", 0644, 1, 0, 0),
-+    ("lib/dbi.py", "usr/lib/python2.3/site-packages/dbi.py", 0644, 0, 0, 0),
-+    ("lib/debug.py", "usr/lib/python2.3/site-packages/debug.py", 0644, 0, 0, 0),
-+    ("lib/popen.py", "usr/lib/python2.3/site-packages/popen.py", 0644, 0, 0, 0),
-+    ("lib/py2html.py", "usr/lib/python2.3/site-packages/py2html.py", 0644, 0, 0, 0),
-+    ("lib/query.py", "usr/lib/python2.3/site-packages/query.py", 0644, 1, 0, 0),
-+    ("lib/rcsparse.py", "usr/lib/python2.3/site-packages/rcsparse.py", 0644, 0, 0, 0),
-+    ("lib/rlog.py", "usr/lib/python2.3/site-packages/rlog.py", 0644, 0, 0, 0),
-+    ("lib/viewcvs.py", "usr/lib/python2.3/site-packages/viewcvs.py", 0644, 1, 0, 0),
-+    ("lib/ezt.py", "usr/lib/python2.3/site-packages/ezt.py", 0644, 0, 0, 0),
-+    ("lib/apache_icons.py", "usr/lib/python2.3/site-packages/apache_icons.py", 0644, 0, 0, 0),
-+    ("lib/accept.py", "usr/lib/python2.3/site-packages/accept.py", 0644, 0, 0, 0),
++    ("lib/PyFontify.py", LIBRARY_DIR + "/PyFontify.py", 0644, 0, 0, 0),
++    ("lib/blame.py", LIBRARY_DIR + "/blame.py", 0644, 0, 0, 0),
++    ("lib/compat.py", LIBRARY_DIR + "/compat.py", 0644, 0, 0, 0),
++    ("lib/config.py", LIBRARY_DIR + "/config.py", 0644, 0, 0, 0),
++    ("lib/cvsdb.py", LIBRARY_DIR + "/cvsdb.py", 0644, 1, 0, 0),
++    ("lib/dbi.py", LIBRARY_DIR + "/dbi.py", 0644, 0, 0, 0),
++    ("lib/debug.py", LIBRARY_DIR + "/debug.py", 0644, 0, 0, 0),
++    ("lib/popen.py", LIBRARY_DIR + "/popen.py", 0644, 0, 0, 0),
++    ("lib/py2html.py", LIBRARY_DIR + "/py2html.py", 0644, 0, 0, 0),
++    ("lib/query.py", LIBRARY_DIR + "/query.py", 0644, 1, 0, 0),
++    ("lib/rcsparse.py", LIBRARY_DIR + "/rcsparse.py", 0644, 0, 0, 0),
++    ("lib/rlog.py", LIBRARY_DIR + "/rlog.py", 0644, 0, 0, 0),
++    ("lib/viewcvs.py", LIBRARY_DIR + "/viewcvs.py", 0644, 1, 0, 0),
++    ("lib/ezt.py", LIBRARY_DIR + "/ezt.py", 0644, 0, 0, 0),
++    ("lib/apache_icons.py", LIBRARY_DIR + "/apache_icons.py", 0644, 0, 0, 0),
++    ("lib/accept.py", LIBRARY_DIR + "/accept.py", 0644, 0, 0, 0),
      
 -    ("templates/annotate.ezt", "templates/annotate.ezt", 0644, 0, 1, 0),
 -    ("templates/diff.ezt", "templates/diff.ezt", 0644, 0, 1, 0),
@@ -186,3 +186,19 @@ diff -urN viewcvs-0.9.2.orig/viewcvs-install viewcvs-0.9.2/viewcvs-install
  
      ("website/help_rootview.html", "doc/help_rootview.html", 0644, 0, 0, 0),
      ("website/help_dirview.html", "doc/help_dirview.html", 0644, 0, 0, 0),
+
+
+diff -Nur viewcvs-0.9.2/viewcvs-install viewcvs-0.9.2~/viewcvs-install
+--- viewcvs-0.9.2/viewcvs-install       2004-01-04 19:39:42.000000000 +0100
++++ viewcvs-0.9.2~/viewcvs-install      2004-01-04 19:38:21.000000000 +0100
+@@ -30,7 +30,8 @@
+ import StringIO
+
+ # get access to our library modules
+-sys.path.insert(0, os.path.join(os.path.dirname(sys.argv[0]), 'lib'))
++sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), 'lib'))
++LIBRARY_DIR = sys.argv[1]
+
+ import compat
+ import viewcvs
+
