@@ -1,16 +1,19 @@
+# TODO:
+#  - do sth with apache modules
+#  - check patch1
 
 Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
-Version:	0.9.2
-Release:	2.7
-License:	distributable
+Version:	1.0
+Release:	0.dev.20041217cvs.0.1
+License:	BSD
 Group:		Development/Tools
-Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
-# Source0-md5:	c7857b1ed05240ad1f691ea40044daf2
+# this is version from official cvs -- just packed
+Source0:	%{name}.tar.gz
 Patch0:		%{name}-install_dir.patch
+#check this
 Patch1:		%{name}-pager.patch
-Patch2:		%{name}-enscript.patch
 URL:		http://viewcvs.sourceforge.net/
 BuildRequires:	python > 1.5
 BuildRequires:	python-modules
@@ -32,10 +35,9 @@ Jest to narzêdzie do przegl±dania repozytoriów CVS poprzez WWW. Ma znacznie
 bogatsz± funkcjonalno¶æ od cvsweb.
 
 %prep
-%setup -q
+%setup -q -n viewcvs
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
+#%%patch1 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -63,9 +65,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README TODO LICENSE.html CHANGES website INSTALL
+%doc README TODO CHANGES website INSTALL
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
 %{py_sitedir}/*.py[co]
+%{py_sitedir}/vclib/*.py[co]
+%{py_sitedir}/vclib/*/*.py[co]
+%{py_sitedir}/vclib/*/*/*.py[co]
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
 %attr(755,root,root) /home/services/httpd/cgi-bin/*
