@@ -26,7 +26,7 @@ This is tool for browsing CVS repositories on the Web. It has superior
 feature set over cvsweb.
 
 %description -l pl
-Jest to narzêdzie do przegl±dania repozytoriów CVS poprzez WWW. Ma znacznie 
+Jest to narzêdzie do przegl±dania repozytoriów CVS poprzez WWW. Ma znacznie
 bogatsz± funkcjonalno¶æ od cvsweb.
 
 %prep
