@@ -8,6 +8,7 @@ Release:	2.4
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
+# Source0-md5:	c7857b1ed05240ad1f691ea40044daf2
 Patch0:		%{name}-install_dir.patch
 Patch1:		%{name}-pager.patch
 URL:		http://viewcvs.sourceforge.net/
