@@ -48,8 +48,8 @@ find $RPM_BUILD_ROOT -type f -exec \
 # Hell, I don't know how to make apache to run *.pyo via python :(
 # Nasty hack but it seems that there is no way to compile non-.py files.
 #for f in $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/*; do mv "$f" "$f.py"; done
-#%{py_comp} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
-#%{py_ocomp} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
+#%%{py_comp} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
+#%%{py_ocomp} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
 #rm $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/*.py
 
 %{py_comp} $RPM_BUILD_ROOT%{py_sitedir}
