@@ -4,7 +4,7 @@ Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.2
-Release:	2.2
+Release:	2.3
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
@@ -51,7 +51,7 @@ find $RPM_BUILD_ROOT -type f -exec \
 #rm $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/*.py
 
 %{py_comp} $RPM_BUILD_ROOT%{py_sitedir}
-%{py_ocomp} $RPM_BUILD_ROOT%{py_ditedir}
+%{py_ocomp} $RPM_BUILD_ROOT%{py_sitedir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
