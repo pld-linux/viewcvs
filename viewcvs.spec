@@ -4,7 +4,7 @@ Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.2
-Release:	2.5
+Release:	2.6
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
@@ -16,8 +16,9 @@ BuildRequires:	python > 1.5
 BuildRequires:	python-modules
 BuildRequires:	perl-base
 BuildRequires:	findutils
+BuildRequires:	sed	
 Requires:	enscript
-Requires:	python = 2.3
+Requires:	python > 1.5
 Requires:	rcs
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -35,16 +36,15 @@ bogatsz± funkcjonalno¶æ od cvsweb.
 %patch0 -p1
 %patch1 -p1
 
-%build
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
 
-echo "$RPM_BUILD_ROOT" | ./viewcvs-install
+%define	_py_sitedir %(echo "%{py_sitedir}" | sed -e 's@/@@')
+echo "$RPM_BUILD_ROOT" | ./viewcvs-install "%{_py_sitedir}"
 
 find $RPM_BUILD_ROOT -type f -exec \
-	perl -pi -e \
+	%{__perl} -pi -e \
 	's@'$RPM_BUILD_ROOT'@@g;' {} \;
 
 # Hell, I don't know how to make apache to run *.pyo via python :(
