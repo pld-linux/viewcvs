@@ -16,7 +16,6 @@ BuildRequires:	python > 1.5
 BuildRequires:	python-modules
 BuildRequires:	perl-base
 BuildRequires:	findutils
-BuildRequires:	sed	
 Requires:	enscript
 Requires:	python > 1.5
 Requires:	rcs
