@@ -9,7 +9,7 @@ diff -urN viewcvs-0.9.2.orig/cgi/query.cgi viewcvs-0.9.2/cgi/query.cgi
 -  sys.path.insert(0, LIBRARY_DIR)
 -else:
 -  sys.path[:0] = ['../lib']	# any other places to look?
-+sys.path.insert(0, '/usr/lib/python2.2/site-packages')
++sys.path.insert(0, '/usr/lib/python2.3/site-packages')
  
  #########################################################################
  
@@ -24,7 +24,7 @@ diff -urN viewcvs-0.9.2.orig/cgi/viewcvs.cgi viewcvs-0.9.2/cgi/viewcvs.cgi
 -  sys.path.insert(0, LIBRARY_DIR)
 -else:
 -  sys.path[:0] = ['../lib']	# any other places to look?
-+sys.path.insert(0, '/usr/lib/python2.2/site-packages')
++sys.path.insert(0, '/usr/lib/python2.3/site-packages')
  
  #########################################################################
  
