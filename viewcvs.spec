@@ -1,8 +1,10 @@
+%include /usr/lib/rpm/macros.python
+
 Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.2
-Release:	2
+Release:	2.1
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
@@ -41,6 +43,10 @@ find $RPM_BUILD_ROOT -type f -exec \
 	perl -pi -e \
 	's@'$RPM_BUILD_ROOT'@@g;' {} \;
 
+rm $RPM_BUILD_ROOT%{_libdir}/python2.2/site-packages/*.pyc
+%{py_comp} $RPM_BUILD_ROOT%{_libdir}/python2.2/site-packages
+%{py_ocomp} $RPM_BUILD_ROOT%{_libdir}/python2.2/site-packages
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -49,6 +55,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README TODO LICENSE.html CHANGES website
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
-%{_libdir}/%{name}/*.pyc
+%{_libdir}/python2.2/site-packages/*.py[co]
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
 /home/services/httpd/cgi-bin/*
