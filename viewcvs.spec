@@ -4,13 +4,14 @@ Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.2
-Release:	2.6
+Release:	2.7
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
 # Source0-md5:	c7857b1ed05240ad1f691ea40044daf2
 Patch0:		%{name}-install_dir.patch
 Patch1:		%{name}-pager.patch
+Patch2:		%{name}-enscript.patch
 URL:		http://viewcvs.sourceforge.net/
 BuildRequires:	python > 1.5
 BuildRequires:	python-modules
@@ -35,6 +36,7 @@ bogatsz± funkcjonalno¶æ od cvsweb.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
