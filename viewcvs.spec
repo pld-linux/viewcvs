@@ -4,7 +4,7 @@ Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.2
-Release:	2.1
+Release:	2.2
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
@@ -43,9 +43,15 @@ find $RPM_BUILD_ROOT -type f -exec \
 	perl -pi -e \
 	's@'$RPM_BUILD_ROOT'@@g;' {} \;
 
-rm $RPM_BUILD_ROOT%{_libdir}/python2.2/site-packages/*.pyc
-%{py_comp} $RPM_BUILD_ROOT%{_libdir}/python2.2/site-packages
-%{py_ocomp} $RPM_BUILD_ROOT%{_libdir}/python2.2/site-packages
+# Hell, I don't know how to make apache to run *.pyo via python :(
+# Nasty hack but it seems that there is no way to compile non-.py files.
+#for f in $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/*; do mv "$f" "$f.py"; done
+#%{py_comp} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
+#%{py_ocomp} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
+#rm $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/*.py
+
+%{py_comp} $RPM_BUILD_ROOT%{py_sitedir}
+%{py_ocomp} $RPM_BUILD_ROOT%{py_ditedir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,6 +61,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc README TODO LICENSE.html CHANGES website
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
-%{_libdir}/python2.2/site-packages/*.py[co]
+%{py_sitedir}/*.py[co]
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
-/home/services/httpd/cgi-bin/*
+%attr(755,root,root) /home/services/httpd/cgi-bin/*
