@@ -1,4 +1,3 @@
-%include /usr/lib/rpm/macros.python
 
 Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
