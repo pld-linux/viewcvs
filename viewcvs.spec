@@ -15,7 +15,6 @@ URL:		http://viewcvs.sourceforge.net/
 BuildRequires:	python > 1.5
 BuildRequires:	python-modules
 BuildRequires:	perl-base
-BuildRequires:	findutils
 Requires:	enscript
 Requires:	python > 1.5
 Requires:	rcs
