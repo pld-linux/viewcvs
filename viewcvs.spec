@@ -1,20 +1,19 @@
-
 Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
-Version:	0.9.2
-Release:	2.7
+Version:	0.9.3
+Release:	0.1
 License:	distributable
 Group:		Development/Tools
-Source0:	http://viewcvs.sourceforge.net/viewcvs-0.9.2.tar.gz
-# Source0-md5:	c7857b1ed05240ad1f691ea40044daf2
+Source0:	http://viewcvs.sourceforge.net/%{name}-%{version}.tar.gz
+# Source0-md5:	8be527279feaaa6ecf184bcf714e2f22
 Patch0:		%{name}-install_dir.patch
 Patch1:		%{name}-pager.patch
 Patch2:		%{name}-enscript.patch
 URL:		http://viewcvs.sourceforge.net/
 BuildRequires:	python > 1.5
 BuildRequires:	python-modules
-BuildRequires:	perl-base
+BuildRequires:	sed >= 4.0
 Requires:	enscript
 Requires:	python > 1.5
 Requires:	rcs
@@ -26,8 +25,8 @@ This is tool for browsing CVS repositories on the Web. It has superior
 feature set over cvsweb.
 
 %description -l pl
-Jest to narzêdzie do przegl±dania repozytoriów CVS poprzez WWW. Ma znacznie
-bogatsz± funkcjonalno¶æ od cvsweb.
+Jest to narzêdzie do przegl±dania repozytoriów CVS poprzez WWW. Ma
+znacznie bogatsz± funkcjonalno¶æ od cvsweb.
 
 %prep
 %setup -q
@@ -42,9 +41,7 @@ install -d $RPM_BUILD_ROOT
 %define	_py_sitedir %(echo "%{py_sitedir}" | sed -e 's@/@@')
 echo "$RPM_BUILD_ROOT" | ./viewcvs-install "%{_py_sitedir}"
 
-find $RPM_BUILD_ROOT -type f -exec \
-	%{__perl} -pi -e \
-	's@'$RPM_BUILD_ROOT'@@g;' {} \;
+find $RPM_BUILD_ROOT -type f -print0 | xargs -0r sed -i -e "s@$RPM_BUILD_ROOT@@g;"
 
 # Hell, I don't know how to make apache to run *.pyo via python :(
 # Nasty hack but it seems that there is no way to compile non-.py files.
@@ -56,6 +53,8 @@ find $RPM_BUILD_ROOT -type f -exec \
 %{py_comp} $RPM_BUILD_ROOT%{py_sitedir}
 %{py_ocomp} $RPM_BUILD_ROOT%{py_sitedir}
 
+%{?py_postclean}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -65,5 +64,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
 %{py_sitedir}/*.py[co]
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %attr(755,root,root) /home/services/httpd/cgi-bin/*
