@@ -2,7 +2,7 @@ Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.3
-Release:	0.1
+Release:	0.2
 License:	distributable
 Group:		Development/Tools
 Source0:	http://viewcvs.sourceforge.net/%{name}-%{version}.tar.gz
