@@ -11,7 +11,7 @@ License:	BSD
 Group:		Development/Tools
 # this is version from official cvs -- just packed
 Source0:	%{name}.tar.gz
-# Source0-md5:
+# Source0-md5:	b8c0ac34744b59d382e4feb9eacb3877
 Patch0:		%{name}-install_dir.patch
 #check this
 Patch1:		%{name}-pager.patch
