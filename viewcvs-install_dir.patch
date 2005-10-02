@@ -1,7 +1,7 @@
 diff -urN viewcvs-oryg/lib/config.py viewcvs/lib/config.py
---- viewcvs-oryg/lib/config.py	2004-09-25 02:00:27.000000000 +0200
-+++ viewcvs/lib/config.py	2004-12-17 18:24:11.080243720 +0100
-@@ -213,7 +213,7 @@
+--- viewcvs-oryg/lib/config.py	2005-09-23 22:15:08.000000000 +0200
++++ viewcvs/lib/config.py	2005-10-02 15:53:01.000000000 +0200
+@@ -216,7 +216,7 @@
      self.options.allow_tar = 0
      self.options.use_cvsgraph = 0
      self.options.cvsgraph_path = ''
@@ -11,8 +11,8 @@ diff -urN viewcvs-oryg/lib/config.py viewcvs/lib/config.py
      self.options.use_pagesize = 0
      self.options.use_localtime = 0
 diff -urN viewcvs-oryg/lib/cvsdb.py viewcvs/lib/cvsdb.py
---- viewcvs-oryg/lib/cvsdb.py	2004-10-16 04:40:10.000000000 +0200
-+++ viewcvs/lib/cvsdb.py	2004-12-17 18:24:11.089242352 +0100
+--- viewcvs-oryg/lib/cvsdb.py	2005-04-09 00:57:00.000000000 +0200
++++ viewcvs/lib/cvsdb.py	2005-10-02 15:53:01.000000000 +0200
 @@ -38,7 +38,7 @@
  
  ## load configuration file, the data is used globally here
@@ -23,21 +23,21 @@ diff -urN viewcvs-oryg/lib/cvsdb.py viewcvs/lib/cvsdb.py
    # developer assistance: running from a CVS working copy
    _cfg_pathname = os.path.join(os.path.dirname(__file__), os.pardir,
 diff -urN viewcvs-oryg/lib/query.py viewcvs/lib/query.py
---- viewcvs-oryg/lib/query.py	2004-10-16 02:47:41.000000000 +0200
-+++ viewcvs/lib/query.py	2004-12-17 18:27:23.259028104 +0100
-@@ -424,7 +424,7 @@
-       data['hours'] = 2
+--- viewcvs-oryg/lib/query.py	2005-09-28 19:06:14.000000000 +0200
++++ viewcvs/lib/query.py	2005-10-02 15:47:35.000000000 +0200
+@@ -431,7 +431,7 @@
  
      template = ezt.Template()
--    template.parse_file(os.path.join(viewcvs.g_install_dir,
-+    template.parse_file(os.path.join("/usr/share/viewcvs",
-                                      cfg.templates.query))
+     tname = viewcvs.get_view_template("query", "en")
+-    template.parse_file(os.path.join(viewcvs.g_install_dir, tname))
++    template.parse_file(os.path.join("/usr/share/viewcvs", tname))
  
      server.header()
+ 
 diff -urN viewcvs-oryg/lib/viewcvs.py viewcvs/lib/viewcvs.py
---- viewcvs-oryg/lib/viewcvs.py	2004-12-10 03:09:46.000000000 +0100
-+++ viewcvs/lib/viewcvs.py	2004-12-17 18:28:41.070199008 +0100
-@@ -107,12 +107,7 @@
+--- viewcvs-oryg/lib/viewcvs.py	2005-09-29 15:28:38.000000000 +0200
++++ viewcvs/lib/viewcvs.py	2005-10-02 15:49:44.000000000 +0200
+@@ -106,12 +106,7 @@
  # special characters that don't need to be URL encoded
  _URL_SAFE_CHARS = "/*~"
  
@@ -51,25 +51,16 @@ diff -urN viewcvs-oryg/lib/viewcvs.py viewcvs/lib/viewcvs.py
  
  
  class Request:
-@@ -691,7 +686,7 @@
-     tname = string.replace(tname, '%lang%', 'en')
- 
-   debug.t_start('ezt-parse')
--  template = ezt.Template(os.path.join(g_install_dir, tname))
-+  template = ezt.Template(os.path.join("/usr/share/viewcvs", tname))
-   debug.t_end('ezt-parse')
- 
-   template.generate(sys.stdout, data)
-@@ -2103,7 +2098,7 @@
+@@ -2162,7 +2157,7 @@
    Using this avoids the need for modifying the setup of the web server.
    """
-   help_page = request.where
--  doc_directory = os.path.join(g_install_dir, "templates", "docroot")
-+  doc_directory = os.path.join("/usr/share/viewcvs", "templates", "docroot")
-   filename = os.path.join(doc_directory, help_page)
+   document = request.where
+-  doc_directory = os.path.join(g_install_dir, cfg.options.template_dir,
++  doc_directory = os.path.join("/usr/share/viewcvs", cfg.options.template_dir,
+                                "docroot")
+   filename = os.path.join(doc_directory, document)
  
-   try:
-@@ -3191,7 +3186,7 @@
+@@ -3200,7 +3195,7 @@
      cfg.set_defaults()
  
      # load in configuration information from the config file
@@ -79,9 +70,9 @@ diff -urN viewcvs-oryg/lib/viewcvs.py viewcvs/lib/viewcvs.py
        cfg.load_config(pathname, sapi.server.getenv('HTTP_HOST'))
      else:
 diff -urN viewcvs-oryg/viewcvs.conf.dist viewcvs/viewcvs.conf.dist
---- viewcvs-oryg/viewcvs.conf.dist	2004-10-26 04:09:09.000000000 +0200
-+++ viewcvs/viewcvs.conf.dist	2004-12-17 18:24:11.123237184 +0100
-@@ -68,6 +68,7 @@
+--- viewcvs-oryg/viewcvs.conf.dist	2005-09-23 22:15:08.000000000 +0200
++++ viewcvs/viewcvs.conf.dist	2005-10-02 15:53:01.000000000 +0200
+@@ -69,6 +69,7 @@
  # names to them. Each root should be given by a "name: path" value. Multiple
  # roots should be separated by commas and can be placed on separate lines.
  #
@@ -89,7 +80,7 @@ diff -urN viewcvs-oryg/viewcvs.conf.dist viewcvs/viewcvs.conf.dist
  cvs_roots = cvs: /home/cvsroot
  
  #
-@@ -76,6 +77,7 @@
+@@ -77,6 +78,7 @@
  # by a "name: path" value. Multiple roots should be separated by
  # commas and can be placed on separate lines.
  #
@@ -98,9 +89,9 @@ diff -urN viewcvs-oryg/viewcvs.conf.dist viewcvs/viewcvs.conf.dist
  
  # The 'root_parents' setting specifies a list of directories in which
 diff -urN viewcvs-oryg/viewcvs-install viewcvs/viewcvs-install
---- viewcvs-oryg/viewcvs-install	2004-09-28 18:30:22.000000000 +0200
-+++ viewcvs/viewcvs-install	2004-12-17 18:25:11.693029176 +0100
-@@ -30,7 +30,8 @@
+--- viewcvs-oryg/viewcvs-install	2005-01-06 21:10:47.000000000 +0100
++++ viewcvs/viewcvs-install	2005-10-02 16:02:35.000000000 +0200
+@@ -31,7 +31,8 @@
  import StringIO
  
  # get access to our library modules
@@ -110,7 +101,16 @@ diff -urN viewcvs-oryg/viewcvs-install viewcvs/viewcvs-install
  
  import compat
  import viewcvs 
-@@ -65,22 +66,22 @@
+@@ -52,7 +53,7 @@
+ """ % version
+ 
+ ## installer defaults
+-DESTDIR = None
++DESTDIR = ""
+ ROOT_DIR = None
+ 
+ 
+@@ -63,22 +64,22 @@
  ##       
  
  FILE_INFO_LIST = [
@@ -145,7 +145,7 @@ diff -urN viewcvs-oryg/viewcvs-install viewcvs/viewcvs-install
      ]
  
  if sys.platform == "win32":
-@@ -90,8 +91,8 @@
+@@ -88,8 +89,8 @@
    ])
  
  TREE_LIST = [
@@ -158,7 +158,7 @@ diff -urN viewcvs-oryg/viewcvs-install viewcvs/viewcvs-install
  # used to escape substitution strings passed to re.sub(). re.escape() is no
 diff -urN viewcvs-oryg/www/cgi/query.cgi viewcvs/www/cgi/query.cgi
 --- viewcvs-oryg/www/cgi/query.cgi	2003-10-27 18:28:30.000000000 +0100
-+++ viewcvs/www/cgi/query.cgi	2004-12-17 18:24:11.356201768 +0100
++++ viewcvs/www/cgi/query.cgi	2005-10-02 15:53:01.000000000 +0200
 @@ -40,10 +40,7 @@
  
  import sys
@@ -173,7 +173,7 @@ diff -urN viewcvs-oryg/www/cgi/query.cgi viewcvs/www/cgi/query.cgi
  
 diff -urN viewcvs-oryg/www/cgi/viewcvs.cgi viewcvs/www/cgi/viewcvs.cgi
 --- viewcvs-oryg/www/cgi/viewcvs.cgi	2003-09-19 00:18:28.000000000 +0200
-+++ viewcvs/www/cgi/viewcvs.cgi	2004-12-17 18:24:11.361201008 +0100
++++ viewcvs/www/cgi/viewcvs.cgi	2005-10-02 15:53:01.000000000 +0200
 @@ -40,10 +40,7 @@
  
  import sys
