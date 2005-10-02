@@ -6,11 +6,12 @@ Summary:	Tool for browsing CVS on the Web
 Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
 Name:		viewcvs
 Version:	1.0
-Release:	0.dev.20041217cvs.0.1
+Release:	0.dev.20051002cvs.0.1
 License:	BSD
 Group:		Development/Tools
 # this is version from official cvs -- just packed
 Source0:	%{name}.tar.gz
+# Source0-md5:
 Patch0:		%{name}-install_dir.patch
 #check this
 Patch1:		%{name}-pager.patch
