@@ -3,7 +3,7 @@
 #  - check patch1
 
 Summary:	Tool for browsing CVS on the Web
-Summary(pl):	Narzêdzie do przegl±dania CVS przez WWW
+Summary(pl.UTF-8):   NarzÄ™dzie do przeglÄ…dania CVS przez WWW
 Name:		viewcvs
 Version:	1.0
 Release:	0.dev.20051002cvs.0.1
@@ -31,9 +31,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This is tool for browsing CVS repositories on the Web. It has superior
 feature set over cvsweb.
 
-%description -l pl
-Jest to narzêdzie do przegl±dania repozytoriów CVS poprzez WWW. Ma znacznie
-bogatsz± funkcjonalno¶æ od cvsweb.
+%description -l pl.UTF-8
+Jest to narzÄ™dzie do przeglÄ…dania repozytoriÃ³w CVS poprzez WWW. Ma znacznie
+bogatszÄ… funkcjonalnoÅ›Ä‡ od cvsweb.
 
 %prep
 %setup -q -n viewcvs
