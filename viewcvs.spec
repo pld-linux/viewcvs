@@ -1,5 +1,5 @@
 Summary:	Tool for browsing CVS on the Web
-Summary(pl.UTF-8):   Narzędzie do przeglądania CVS przez WWW
+Summary(pl.UTF-8):	Narzędzie do przeglądania CVS przez WWW
 Name:		viewcvs
 Version:	0.9.3
 Release:	0.2
